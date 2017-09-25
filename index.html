@@ -2,16 +2,18 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Tracking Colors</title>
+    <title>Tracking Colors Camera</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
     <script src="vendors/lodash.core.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center page-title">TrackingJs Colors</h2>
+        <h2 class="text-center page-title">TrackingJs Colors Camera</h2>
         <div id="images" class="canvas-parent col-sm-8 col-sm-offset-2">
-            <canvas id="initCanvas" class="canvas-img"></canvas>
+            <video id="video" width="640" height="480" preload autoplay loop muted controls>
+            </video>
+            <canvas id="initCanvas" class="canvas-img" width="640" height="480"></canvas>
         </div>
     </div>
 

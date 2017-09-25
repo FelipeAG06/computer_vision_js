@@ -1,15 +1,11 @@
-const imgPath = '../img/flowers.jpg';
-
 let canvas = document.getElementById('initCanvas');
 let context = canvas.getContext('2d'); 
-let image = new Image();
 
-image.src = imgPath;
-
-const trackColors = () => {
+const trackVideo = () => {
     const tracker = new tracking.ColorTracker(['magenta', 'cyan', 'yellow']);
 
     tracker.on('track', (event) => {
+        context.clearRect(0, 0, canvas.width, canvas.height);
         _.each(event.data, (rect) => {
             drawRect(rect.x, rect.y, rect.width, rect.height, rect.color);
         });
@@ -21,12 +17,7 @@ const trackColors = () => {
         context.strokeRect(x, y, w, h);
     }
 
-    tracking.track('#initCanvas', tracker);
+    tracking.track('#video', tracker, {camera: true});
 }
 
-image.onload = () => {
-    canvas.width = image.width;
-    canvas.height = image.height;
-    context.drawImage(image, 0, 0, image.width, image.height);
-    trackColors();
-}
+window.onload = () => trackVideo();
