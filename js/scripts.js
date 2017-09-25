@@ -1,5 +1,5 @@
 const imgPath = '../img/sw01.jpg';
-const parentClass = 'canvas-img';
+const canvasClass = 'canvas-img';
 
 let canvas = document.getElementById('initCanvas');
 let context = canvas.getContext('2d'); 
@@ -24,5 +24,5 @@ image.onload = () => {
     let grayImage = new jsfeat.matrix_t(matrix.cols, matrix.rows, jsfeat.U8_t | jsfeat.C1_t);
     jsfeat.imgproc.grayscale(matrix.data, matrix.cols, matrix.rows, grayImage);
     
-    drawMat(grayImage, canvasParent, parentClass);
+    drawMat(grayImage, canvasParent, canvasClass);
 }
