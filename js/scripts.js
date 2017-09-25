@@ -1,45 +1,40 @@
-let canvas = document.getElementById('initCanvas');
-let imageWrapper = document.getElementById('imageWrapper');
+const videoInput = document.getElementById('inputVideo');
+const canvasInput = document.getElementById('buffer');
+const canvasOverlay = document.getElementById('overlay');
+const debugOverlay = document.getElementById('debug');
+const overlayContext = canvasOverlay.getContext('2d');
 
-const theFoos = ['Pat Smear', 'Nate Mendel', 'Dave Grohl', 'Taylor Hawkins',
-'Chris Shiftlett']
 
-const trackFace = () => {
-    const tracker = new tracking.ObjectTracker('face');
+canvasOverlay.style.position = 'absolute';
+canvasOverlay.style.top = '0px';
+canvasOverlay.style.zIndex = '100001';
+canvasOverlay.style.display = 'block';
 
-    tracker.on('track', (event) => {
-        let data = event.data;
-        data.sort((a, b) => {
-            return b.x - a.x;
-        });
+let htracker = new headtrackr.Tracker({
+    altVideo: {webm: '../video/SteveJobs2005.webm'},
+    calcAngles: true,
+    ui: true,
+    headPosition: true,
+    debug: debugOverlay
+});
 
-        data = data.filter((element) => {
-            return element.width >= 50;
-        });
 
-        _.each(event.data, (rect) => {
-            drawRect(rect.x, rect.y, rect.width, rect.height);
-        });
-    });
+htracker.init(videoInput, canvasInput);
+htracker.start();
 
-    const drawRect = (x, y, w, h) => {
-        let rect = document.createElement('div');
-        let name = document.createElement('input');
-
-        name.value = theFoos.pop();
-        rect.appendChild(name);
-
-        imageWrapper.appendChild(rect);
-
-        rect.style.width = w + 'px';
-        rect.style.height = h + 'px';
-        rect.style.left = (image.offsetLeft + x) + 'px';
-        rect.style.top = (image.offsetTop + y) + 'px';
-        rect.style.position = 'absolute';
-        rect.style.border = '3px solid white';
+document.addEventListener('facetrackingEvent', (event) => {
+    overlayContext.clearRect(0, 0, 320, 240);
+    if (event.detection == 'CS') {
+        overlayContext.translate(event.x, event.y);
+        overlayContext.rotate(event.angle - (Math.PI / 2));
+        overlayContext.strokeStyle = '#00CC00';
+        overlayContext.strokeRect((-event.width / 2) >> 0, (-event.height / 2) >> 0, event.width, event.height);
+        overlayContext.rotate((Math.PI / 2) - event.angle);
+        overlayContext.translate(-event.x, -event.y);
     }
+});
 
-    tracking.track('#image', tracker);
-}
-
-window.onload = () => trackFace();
+let reinitiate = () => {
+    htracker.stop(); 
+    htracker.start()
+};

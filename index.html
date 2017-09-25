@@ -2,23 +2,25 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Tag People</title>
+    <title>Headtrackr Camshift</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
     <script src="vendors/lodash.core.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center page-title">Tag People</h2>
-        <div id="imageWrapper">
-            <img id="image" src="img/foo-gray.png" alt="">
-        </div>
+        <h2 class="text-center page-title">Headtrackr Camshift</h2>
+
+        <canvas id="buffer" width="320" height="240"></canvas>
+        <video id="inputVideo" autoplay loop muted width="320" height="240"></video>
+        <canvas id="overlay" width="320" height="240"></canvas>
+        <canvas id="debug" width="320" height="240"></canvas>
+
+        <p class="detection-message">Status : <span id='headtrackerMessage'></span></p>
+        <button class="btn btn-success" onclick="reinitiate()">Reinitiate Facedetection</button>
     </div>
 
-    <script src="vendors/tracking-min.js"></script>
-    <script src="data/face-min.js"></script>
-    <script src="data/eye-min.js"></script>
-    <script src="data/mouth-min.js"></script>
+    <script src="vendors/headtrackr.min.js"></script>
     <script src="dist/scripts.js"></script>
 </body>
 </html>

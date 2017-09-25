@@ -7,29 +7,6 @@ h2.page-title {
     color: #FFF;
 }
 
-.rect {
-    border-radius: 2px;
-    border: 3px solid white;
-    box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    left: -1000px;
-    opacity: 1;
-    position: absolute;
-    top: -1000px;
-    z-index: initial
-}
-input {
-    border: 0;
-    bottom: -47px;
-    color: #a64ceb;
-    font-size: 20px;
-    height: 35px;
-    left: 50%;
-    margin-left: -75px;
-    opacity: 1;
-    outline: none;
-    position: absolute;
-    text-align: center;
-    width: 150px;
-    z-index: 10
+.detection-message {
+    color: #FFF;
 }

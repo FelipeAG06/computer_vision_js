@@ -1,48 +1,40 @@
 'use strict';
 
-var canvas = document.getElementById('initCanvas');
-var imageWrapper = document.getElementById('imageWrapper');
+var videoInput = document.getElementById('inputVideo');
+var canvasInput = document.getElementById('buffer');
+var canvasOverlay = document.getElementById('overlay');
+var debugOverlay = document.getElementById('debug');
+var overlayContext = canvasOverlay.getContext('2d');
 
-var theFoos = ['Pat Smear', 'Nate Mendel', 'Dave Grohl', 'Taylor Hawkins', 'Chris Shiftlett'];
+canvasOverlay.style.position = 'absolute';
+canvasOverlay.style.top = '0px';
+canvasOverlay.style.zIndex = '100001';
+canvasOverlay.style.display = 'block';
 
-var trackFace = function trackFace() {
-    var tracker = new tracking.ObjectTracker('face');
+var htracker = new headtrackr.Tracker({
+    altVideo: { webm: '../video/SteveJobs2005.webm' },
+    calcAngles: true,
+    ui: true,
+    headPosition: true,
+    debug: debugOverlay
+});
 
-    tracker.on('track', function (event) {
-        var data = event.data;
-        data.sort(function (a, b) {
-            return b.x - a.x;
-        });
+htracker.init(videoInput, canvasInput);
+htracker.start();
 
-        data = data.filter(function (element) {
-            return element.width >= 50;
-        });
+document.addEventListener('facetrackingEvent', function (event) {
+    overlayContext.clearRect(0, 0, 320, 240);
+    if (event.detection == 'CS') {
+        overlayContext.translate(event.x, event.y);
+        overlayContext.rotate(event.angle - Math.PI / 2);
+        overlayContext.strokeStyle = '#00CC00';
+        overlayContext.strokeRect(-event.width / 2 >> 0, -event.height / 2 >> 0, event.width, event.height);
+        overlayContext.rotate(Math.PI / 2 - event.angle);
+        overlayContext.translate(-event.x, -event.y);
+    }
+});
 
-        _.each(event.data, function (rect) {
-            drawRect(rect.x, rect.y, rect.width, rect.height);
-        });
-    });
-
-    var drawRect = function drawRect(x, y, w, h) {
-        var rect = document.createElement('div');
-        var name = document.createElement('input');
-
-        name.value = theFoos.pop();
-        rect.appendChild(name);
-
-        imageWrapper.appendChild(rect);
-
-        rect.style.width = w + 'px';
-        rect.style.height = h + 'px';
-        rect.style.left = image.offsetLeft + x + 'px';
-        rect.style.top = image.offsetTop + y + 'px';
-        rect.style.position = 'absolute';
-        rect.style.border = '3px solid white';
-    };
-
-    tracking.track('#image', tracker);
-};
-
-window.onload = function () {
-    return trackFace();
+var reinitiate = function reinitiate() {
+    htracker.stop();
+    htracker.start();
 };
