@@ -2,20 +2,24 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Tracking Custom Color</title>
+    <title>Tracking Face</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
     <script src="vendors/lodash.core.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center page-title">TrackingJs Custom Color</h2>
+        <h2 class="text-center page-title">TrackingJs Face tracker</h2>
         <div id="images" class="canvas-parent col-sm-8">
-            <canvas id="initCanvas" class="canvas-img"></canvas>
+            <video id="video" width="640" height="480" preload autoplay loop muted ></video>
+            <canvas id="initCanvas" width="640" height="480" class="canvas-img"></canvas>
         </div>
     </div>
 
     <script src="vendors/tracking-min.js"></script>
+    <script src="data/face-min.js"></script>
+    <script src="data/eye-min.js"></script>
+    <script src="data/mouth-min.js"></script>
     <script src="dist/scripts.js"></script>
 </body>
 </html>

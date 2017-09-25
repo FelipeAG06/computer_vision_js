@@ -6,3 +6,8 @@ h2.page-title {
     margin: 25px 0;
     color: #FFF;
 }
+
+#initCanvas {
+    position: absolute;
+    left: 8px;
+}

@@ -1,39 +1,31 @@
 'use strict';
 
-var imagePath = '../img/apple.jpg';
-
 var canvas = document.getElementById('initCanvas');
 var context = canvas.getContext('2d');
-var image = new Image();
 
-image.src = imagePath;
+var trackFace = function trackFace() {
+    var tracker = new tracking.ObjectTracker('face');
 
-var trackCustom = function trackCustom() {
-    // rgb(120,39,49)
-    tracking.ColorTracker.registerColor('darkRed', function (r, g, b) {
-        return r > 110 && g < 90 && b < 90;
-    });
-
-    var tracker = new tracking.ColorTracker('darkRed');
+    tracker.setInitialScale(4);
+    tracker.setStepSize(2);
+    tracker.setEdgesDensity(0.1);
 
     tracker.on('track', function (event) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
         _.each(event.data, function (rect) {
-            drawRect(rect.x, rect.y, rect.width, rect.height, rect.color);
+            drawRect(rect.x, rect.y, rect.width, rect.height);
         });
     });
 
-    var drawRect = function drawRect(x, y, w, h, color) {
+    var drawRect = function drawRect(x, y, w, h) {
         context.lineWidth = '4';
-        context.strokeStyle = color;
+        context.strokeStyle = 'red';
         context.strokeRect(x, y, w, h);
     };
 
-    tracking.track(canvas, tracker);
+    tracking.track('#video', tracker, { camera: true });
 };
 
-image.onload = function () {
-    canvas.width = image.width;
-    canvas.height = image.height;
-    context.drawImage(image, 0, 0, image.width, image.height);
-    trackCustom();
+window.onload = function () {
+    return trackFace();
 };
