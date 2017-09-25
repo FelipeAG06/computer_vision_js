@@ -1,13 +1,22 @@
 'use strict';
 
+var imagePath = '../img/apple.jpg';
+
 var canvas = document.getElementById('initCanvas');
 var context = canvas.getContext('2d');
+var image = new Image();
 
-var trackVideo = function trackVideo() {
-    var tracker = new tracking.ColorTracker(['magenta', 'cyan', 'yellow']);
+image.src = imagePath;
+
+var trackCustom = function trackCustom() {
+    // rgb(120,39,49)
+    tracking.ColorTracker.registerColor('darkRed', function (r, g, b) {
+        return r > 110 && g < 90 && b < 90;
+    });
+
+    var tracker = new tracking.ColorTracker('darkRed');
 
     tracker.on('track', function (event) {
-        context.clearRect(0, 0, canvas.width, canvas.height);
         _.each(event.data, function (rect) {
             drawRect(rect.x, rect.y, rect.width, rect.height, rect.color);
         });
@@ -19,9 +28,12 @@ var trackVideo = function trackVideo() {
         context.strokeRect(x, y, w, h);
     };
 
-    tracking.track('#video', tracker, { camera: true });
+    tracking.track(canvas, tracker);
 };
 
-window.onload = function () {
-    return trackVideo();
+image.onload = function () {
+    canvas.width = image.width;
+    canvas.height = image.height;
+    context.drawImage(image, 0, 0, image.width, image.height);
+    trackCustom();
 };

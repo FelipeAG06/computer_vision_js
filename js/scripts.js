@@ -1,11 +1,20 @@
-let canvas = document.getElementById('initCanvas');
-let context = canvas.getContext('2d'); 
+const imagePath = '../img/apple.jpg';
 
-const trackVideo = () => {
-    const tracker = new tracking.ColorTracker(['magenta', 'cyan', 'yellow']);
+let canvas = document.getElementById('initCanvas');
+let context = canvas.getContext('2d');
+let image = new Image();
+
+image.src = imagePath;
+
+const trackCustom = () => {
+    // rgb(120,39,49)
+    tracking.ColorTracker.registerColor('darkRed', (r, g, b) => {
+        return r > 110 && g < 90 && b < 90;     
+    });
+
+    const tracker = new tracking.ColorTracker('darkRed');
 
     tracker.on('track', (event) => {
-        context.clearRect(0, 0, canvas.width, canvas.height);
         _.each(event.data, (rect) => {
             drawRect(rect.x, rect.y, rect.width, rect.height, rect.color);
         });
@@ -17,7 +26,12 @@ const trackVideo = () => {
         context.strokeRect(x, y, w, h);
     }
 
-    tracking.track('#video', tracker, {camera: true});
+    tracking.track(canvas, tracker);
 }
 
-window.onload = () => trackVideo();
+image.onload = () => {
+    canvas.width = image.width;
+    canvas.height = image.height;
+    context.drawImage(image, 0, 0, image.width, image.height);
+    trackCustom();
+};

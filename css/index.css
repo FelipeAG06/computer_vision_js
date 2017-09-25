@@ -6,7 +6,3 @@ h2.page-title {
     margin: 25px 0;
     color: #FFF;
 }
-
-video, canvas {
-    position: absolute;
-}
