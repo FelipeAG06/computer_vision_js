@@ -1,3 +1,8 @@
 body {
-    background-color: #EAF1F1;
+    background-color: #1a242f;
+}
+
+h2.page-title {
+    margin: 25px 0;
+    color: #FFF;
 }
