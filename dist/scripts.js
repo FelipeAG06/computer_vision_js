@@ -1,6 +1,6 @@
 'use strict';
 
-var imgPath = '../img/bulldog.jpg';
+var imgPath = '../img/car.jpg';
 var canvasClass = 'canvas-img';
 
 var canvas = document.getElementById('initCanvas');
@@ -25,10 +25,11 @@ image.onload = function () {
     var grayImage = new jsfeat.matrix_t(matrix.cols, matrix.rows, jsfeat.U8_t | jsfeat.C1_t);
     jsfeat.imgproc.grayscale(matrix.data, matrix.cols, matrix.rows, grayImage);
 
-    //Apply Gaussian filter
-    var kernelSize = 5;
-    var blurredImage = new jsfeat.matrix_t(matrix.cols, matrix.rows, jsfeat.U8C1_t);
-    jsfeat.imgproc.gaussian_blur(grayImage, blurredImage, kernelSize);
+    var kernelSize = 2;
 
-    drawMat(blurredImage, canvasParent, canvasClass);
+    // Add canny and gaussian filter
+    var canny = new jsfeat.matrix_t(cols, rows, jsfeat.U8C1_t);
+    jsfeat.imgproc.gaussian_blur(grayImage, canny, kernelSize);
+    jsfeat.imgproc.canny(canny, canny, 90, 300);
+    drawMat(canny, canvasParent, canvasClass);
 };

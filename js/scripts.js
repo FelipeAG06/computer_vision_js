@@ -1,4 +1,4 @@
-const imgPath = '../img/bulldog.jpg';
+const imgPath = '../img/car.jpg';
 const canvasClass = 'canvas-img';
 
 let canvas = document.getElementById('initCanvas');
@@ -24,10 +24,11 @@ image.onload = () => {
     let grayImage = new jsfeat.matrix_t(matrix.cols, matrix.rows, jsfeat.U8_t | jsfeat.C1_t);
     jsfeat.imgproc.grayscale(matrix.data, matrix.cols, matrix.rows, grayImage);
 
-    //Apply Gaussian filter
-    const kernelSize = 5;
-    let blurredImage = new jsfeat.matrix_t(matrix.cols, matrix.rows, jsfeat.U8C1_t);
-    jsfeat.imgproc.gaussian_blur(grayImage, blurredImage, kernelSize);
-    
-    drawMat(blurredImage, canvasParent, canvasClass);
+    const kernelSize = 2;
+   
+    // Add canny and gaussian filter
+    var canny = new jsfeat.matrix_t(cols, rows, jsfeat.U8C1_t);
+    jsfeat.imgproc.gaussian_blur(grayImage, canny, kernelSize);
+    jsfeat.imgproc.canny(canny, canny, 90, 300);
+    drawMat(canny, canvasParent, canvasClass);
 }
