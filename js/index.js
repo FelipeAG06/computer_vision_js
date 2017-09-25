@@ -6,6 +6,7 @@
 
     for(var i = 0; i < matrix.rows; i++) {
         var start =  i * matrix.cols;
-        console.log(matrix.data.subarray(start, start + matrix.cols));
+        var end = start + matrix.cols;
+        console.log(matrix.data.subarray(start, end));
     }
 })();
