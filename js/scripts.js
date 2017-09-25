@@ -1,4 +1,4 @@
-const imgPath = '../img/sw01.jpg';
+const imgPath = '../img/bulldog.jpg';
 const canvasClass = 'canvas-img';
 
 let canvas = document.getElementById('initCanvas');
@@ -23,6 +23,11 @@ image.onload = () => {
 
     let grayImage = new jsfeat.matrix_t(matrix.cols, matrix.rows, jsfeat.U8_t | jsfeat.C1_t);
     jsfeat.imgproc.grayscale(matrix.data, matrix.cols, matrix.rows, grayImage);
+
+    //Apply Gaussian filter
+    const kernelSize = 5;
+    let blurredImage = new jsfeat.matrix_t(matrix.cols, matrix.rows, jsfeat.U8C1_t);
+    jsfeat.imgproc.gaussian_blur(grayImage, blurredImage, kernelSize);
     
-    drawMat(grayImage, canvasParent, canvasClass);
+    drawMat(blurredImage, canvasParent, canvasClass);
 }

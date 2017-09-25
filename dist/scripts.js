@@ -1,7 +1,7 @@
 'use strict';
 
-var imgPath = '../img/sw01.jpg';
-var parentClass = 'canvas-img';
+var imgPath = '../img/bulldog.jpg';
+var canvasClass = 'canvas-img';
 
 var canvas = document.getElementById('initCanvas');
 var context = canvas.getContext('2d');
@@ -25,5 +25,10 @@ image.onload = function () {
     var grayImage = new jsfeat.matrix_t(matrix.cols, matrix.rows, jsfeat.U8_t | jsfeat.C1_t);
     jsfeat.imgproc.grayscale(matrix.data, matrix.cols, matrix.rows, grayImage);
 
-    drawMat(grayImage, canvasParent, parentClass);
+    //Apply Gaussian filter
+    var kernelSize = 5;
+    var blurredImage = new jsfeat.matrix_t(matrix.cols, matrix.rows, jsfeat.U8C1_t);
+    jsfeat.imgproc.gaussian_blur(grayImage, blurredImage, kernelSize);
+
+    drawMat(blurredImage, canvasParent, canvasClass);
 };
