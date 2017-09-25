@@ -1,0 +1,15 @@
+{
+  "name": "computer_vision_js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "http-server -o -p3333 ."
+  },
+  "author": "Felipe Alvarez",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "0.10.0"
+  }
+}
