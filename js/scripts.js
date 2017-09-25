@@ -7,7 +7,7 @@ const trackFace = () => {
     tracker.setInitialScale(4);
     tracker.setStepSize(2);
     tracker.setEdgesDensity(0.1);
-    
+
     tracker.on('track', (event) => {
         context.clearRect(0, 0, canvas.width, canvas.height);
         _.each(event.data, (rect) => {
@@ -23,6 +23,5 @@ const trackFace = () => {
 
     tracking.track('#video', tracker, {camera: true});
 }
-
 
 window.onload = () => trackFace();
