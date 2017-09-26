@@ -7,10 +7,9 @@ let image = new Image();
 image.src = imagePath;
 
 const trackCustom = () => {
-    // rgb(120,39,49)
-    tracking.ColorTracker.registerColor('darkRed', (r, g, b) => {
-        return r > 110 && g < 90 && b < 90;     
-    });
+    // tracking.ColorTracker.registerColor('darkRed', (r, g, b) => {
+    //     return r > 110 && g < 90 && b < 90;     
+    // });
 
     const tracker = new tracking.ColorTracker('darkRed');
 
@@ -33,5 +32,5 @@ image.onload = () => {
     canvas.width = image.width;
     canvas.height = image.height;
     context.drawImage(image, 0, 0, image.width, image.height);
-    trackCustom();
+    // trackCustom();
 };
