@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "http-server -o -p3333 ."
+    "serve": "http-server -o -p3333 .",
+    "build": "gulp",
+    "clean": "rm -rf ./dist/scripts.js"
   },
   "author": "Felipe Alvarez",
   "license": "ISC",
