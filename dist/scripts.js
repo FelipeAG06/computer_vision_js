@@ -9,9 +9,6 @@ var image = new Image();
 image.src = imagePath;
 
 var trackCustom = function trackCustom() {
-    // tracking.ColorTracker.registerColor('darkRed', (r, g, b) => {
-    //     return r > 110 && g < 90 && b < 90;     
-    // });
 
     var tracker = new tracking.ColorTracker('darkRed');
 
