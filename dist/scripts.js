@@ -9,6 +9,9 @@ var image = new Image();
 image.src = imagePath;
 
 var trackCustom = function trackCustom() {
+    tracking.ColorTracker.registerColor('darkRed', function (r, g, b) {
+        return r > 110 && g < 90 && b < 90;
+    });
 
     var tracker = new tracking.ColorTracker('darkRed');
 
@@ -31,5 +34,5 @@ image.onload = function () {
     canvas.width = image.width;
     canvas.height = image.height;
     context.drawImage(image, 0, 0, image.width, image.height);
-    // trackCustom();
+    trackCustom();
 };
