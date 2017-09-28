@@ -1,6 +1,6 @@
 # computer_vision_js
 
-Code examples with the usage of popular Computer vision libraries in Javascript
+Code examples with the usage of popular Computer vision libraries in Javascript (each branch is an example)
 
 Libraries Used:
  
